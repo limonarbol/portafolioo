@@ -7,11 +7,12 @@
     <style>
         /* PALETA PASTEL (Tus colores LimonArbol + Vibras OMYO) */
         :root {
-            --bg-lavanda: #dbe4f9;      /* Fondo texturizado azul/lavanda claro */
-            --hoja-blanca: #fbfbfb;     /* Color de las hojas de papel */
-            --borde-foto: #ffffff;      /* Marco de foto instantánea */
-            --amarillo-pastel: #fff8cd;  /* Detalles de stickers */
+            --bg-lavanda: #dbe4f9;      
+            --hoja-blanca: #fbfbfb;     
+            --borde-foto: #ffffff;      
+            --amarillo-pastel: #fff8cd;  
             --azul-pastel: #bce3ff;
+            --texto-dark: #2a3b50;
         }
 
         * {
@@ -22,7 +23,6 @@
 
         body {
             background-color: var(--bg-lavanda);
-            /* Textura sutil para el fondo exterior */
             background-image: radial-gradient(rgba(255,255,255,0.5) 2px, transparent 0);
             background-size: 30px 30px;
             display: flex;
@@ -38,19 +38,17 @@
             position: relative;
             width: 100%;
             max-width: 1200px;
-            aspect-ratio: 16 / 9; /* Mantiene la proporción del cuaderno original */
+            aspect-ratio: 16 / 9; 
             background-color: var(--hoja-blanca);
             border-radius: 8px;
             box-shadow: 
                 0 10px 30px rgba(0, 0, 0, 0.15),
-                -5px 5px 0px #f0f0f0, /* Efecto de hojas apiladas abajo */
+                -5px 5px 0px #f0f0f0, 
                 5px 5px 0px #f0f0f0;
             display: flex;
-            position: relative;
             overflow: hidden;
         }
 
-        /* Línea sutil que divide las páginas por detrás del lomo */
         .notebook-container::before {
             content: '';
             position: absolute;
@@ -62,7 +60,7 @@
             z-index: 1;
         }
 
-        /* LOMO DE ARGOLLAS METÁLICAS (Estilo image_7cb4c5.jpg) */
+        /* LOMO DE ARGOLLAS */
         .binder-spine {
             position: absolute;
             left: 50%;
@@ -80,17 +78,14 @@
             padding: 4rem 0;
         }
 
-        /* Las argollas individuales */
         .ring {
             width: 65px;
             height: 16px;
             background: linear-gradient(to bottom, #777, #ddd 40%, #fff 60%, #666);
             border-radius: 8px;
             box-shadow: 0 5px 8px rgba(0,0,0,0.3);
-            position: relative;
         }
 
-        /* COLLAGE: POSICIONAMIENTO DE TARJETAS (VIDEOS) */
         .collage-canvas {
             position: relative;
             width: 100%;
@@ -98,18 +93,57 @@
             z-index: 2;
         }
 
-        /* Estilo base tipo foto/recorte para los contenedores de video */
+        /* NUEVO LOGO ESCALONADO ESTILO EDITORIAL */
+        .brand-logo-staggered {
+            position: absolute;
+            top: 6%;
+            left: 4%;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            z-index: 4;
+            user-select: none;
+        }
+
+        .brand-logo-staggered .word-limon {
+            font-size: 2.2rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+            color: var(--texto-dark);
+            margin-left: 100px; /* Desplazado a la derecha */
+        }
+
+        .brand-logo-staggered .word-arbol {
+            font-size: 2.2rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+            color: var(--texto-dark);
+            margin-left: 170px; /* Más desplazado a la derecha */
+            background: linear-gradient(180deg, transparent 60%, var(--amarillo-pastel) 60%);
+            padding-right: 10px;
+        }
+
+        .brand-logo-staggered .word-portfolio {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #a2b5cd;
+            text-transform: lowercase;
+            margin-left: 30px; /* Menos sangría, justo abajo */
+            margin-top: 4px;
+        }
+
+        /* CONTENEDORES DE VIDEO */
         .video-card {
             position: absolute;
             background-color: var(--borde-foto);
-            padding: 12px 12px 18px 12px; /* Margen inferior más ancho estilo polaroid */
+            padding: 12px 12px 18px 12px; 
             box-shadow: 4px 8px 20px rgba(0, 0, 0, 0.12);
             border-radius: 4px;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             overflow: hidden;
         }
 
-        /* Evita que los videos se salgan de sus marcos */
         .video-card video, 
         .video-card iframe {
             width: 100%;
@@ -121,24 +155,21 @@
             background-color: #000;
         }
 
-        /* Hover sutil para interactuar con los recortes */
         .video-card:hover {
-            transform: scale(1.02) !important; /* Mantiene la prioridad en el hover */
+            transform: scale(1.02) !important; 
             box-shadow: 6px 12px 25px rgba(0, 0, 0, 0.18);
             z-index: 5;
         }
 
-        /* POSICIONES EXACTAS BASADAS EN LA IMAGEN DE REFERENCIA */
-        
-        /* Video Grande Izquierdo (Caída Libre o el que quieras) */
+        /* AJUSTE DE POSICIONES */
+        /* Moví el video izquierdo un poco hacia abajo para darle aire al nuevo logo */
         .card-left-main {
-            width: 44%;
-            left: 3%;
-            top: 12%;
-            transform: rotate(-3deg);
+            width: 42%;
+            left: 4%;
+            bottom: 8%;
+            transform: rotate(-2deg);
         }
 
-        /* Video Chico Derecho Superior */
         .card-right-top {
             width: 28%;
             right: 14%;
@@ -146,7 +177,6 @@
             transform: rotate(-4deg);
         }
 
-        /* Video Mediano Derecho Inferior (Tu Title Track o Soft Body) */
         .card-right-bottom {
             width: 32%;
             right: 4%;
@@ -154,38 +184,19 @@
             transform: rotate(2deg);
         }
 
-        /* ELEMENTOS DECORATIVOS / STICKERS (Vibras NCT Wish / OMYO) */
-        .sticker-text {
-            position: absolute;
-            font-family: 'Courier New', Courier, monospace;
-            font-weight: bold;
-            color: #a2b5cd;
-            text-transform: uppercase;
-            font-size: 1.5rem;
-            letter-spacing: -1px;
-        }
-
-        .sticker-logo {
-            right: 5%;
-            top: 15%;
-            transform: rotate(5deg);
-            opacity: 0.7;
-        }
-
+        /* DECORACIONES */
         .star-draw {
             position: absolute;
-            right: 7%;
-            top: 26%;
+            right: 6%;
+            top: 25%;
             font-size: 2rem;
             color: #b0c4de;
-            user-select: none;
         }
 
-        /* Responsivo básico por si se ve en pantallas medianas */
         @media (max-width: 900px) {
             body { padding: 0; }
             .notebook-container { aspect-ratio: auto; flex-direction: column; height: auto; padding: 2rem 1rem; }
-            .binder-spine { display: none; }
+            .binder-spine, .brand-logo-staggered { display: none; }
             .video-card { position: relative; width: 100% !important; left: 0 !important; right: 0 !important; top: 0 !important; bottom: 0 !important; transform: none !important; margin-bottom: 2rem; }
         }
     </style>
@@ -194,7 +205,7 @@
 
     <div class="notebook-container">
         
-        <!-- Espina de la carpeta metálica central -->
+        <!-- Argollas -->
         <div class="binder-spine">
             <div class="ring"></div>
             <div class="ring"></div>
@@ -203,34 +214,35 @@
             <div class="ring"></div>
         </div>
 
-        <!-- Lienzo del Collage -->
         <div class="collage-canvas">
             
-            <!-- VIDEO 1: LADO IZQUIERDO (PRINCIPAL) -->
+            <!-- TU NUEVO LOGO PERSONALIZADO ESCALONADO -->
+            <div class="brand-logo-staggered">
+                <span class="word-limon">LIMON</span>
+                <span class="word-arbol">ARBOL</span>
+                <span class="word-portfolio">portafolio</span>
+            </div>
+            
+            <!-- VIDEO 1: IZQUIERDO (Ajustado abajo del logo) -->
             <div class="video-card card-left-main">
-                <!-- Puedes usar la etiqueta <video> para archivos locales (.mp4) -->
                 <video autoplay loop muted playsinline>
                     <source src="tu_video_simulacion_1.mp4" type="video/mp4">
-                    Tu navegador no soporta video.
                 </video>
             </div>
 
-            <!-- VIDEO 2: LADO DERECHO SUPERIOR -->
+            <!-- VIDEO 2: DERECHO SUPERIOR (El Rickroll de la suerte 🌟) -->
             <div class="video-card card-right-top">
-                <!-- O puedes incrustar directamente un iframe de tus videos de YouTube -->
-                <!-- Nota: Asegúrate de usar la URL con '/embed/' como en este ejemplo de marcador -->
                 <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1&loop=1&playlist=dQw4w9WgXcQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
             </div>
 
-            <!-- VIDEO 3: LADO DERECHO INFERIOR -->
+            <!-- VIDEO 3: DERECHO INFERIOR -->
             <div class="video-card card-right-bottom">
                 <video autoplay loop muted playsinline>
                     <source src="tu_video_simulacion_2.mp4" type="video/mp4">
                 </video>
             </div>
 
-            <!-- DETALLES GRÁFICOS (Como las firmas impresas de las hojas) -->
-            <div class="sticker-text sticker-logo">LimonArbol</div>
+            <!-- Detalle de estrella fija -->
             <div class="star-draw">✦</div>
 
         </div>
