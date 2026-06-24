@@ -3,16 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scrapbook Portafolio — LimonArbol</title>
+    <title>Scrapbook Infinito — LimonArbol</title>
     <style>
         /* PALETA PASTEL (Tus colores LimonArbol + Vibras OMYO) */
         :root {
             --bg-lavanda: #dbe4f9;      
             --hoja-blanca: #fbfbfb;     
             --borde-foto: #ffffff;      
-            --amarillo-pastel: #fff8cd;  
-            --azul-pastel: #bce3ff;
+            --amarillo-tape: rgba(255, 243, 161, 0.9); /* Amarillo pastel con transparencia de cinta */
+            --azul-tape: rgba(188, 227, 255, 0.9);     /* Azul pastel con transparencia de cinta */
             --texto-dark: #2a3b50;
+            --texto-muted: #8fa0b5;
         }
 
         * {
@@ -25,28 +26,26 @@
             background-color: var(--bg-lavanda);
             background-image: radial-gradient(rgba(255,255,255,0.5) 2px, transparent 0);
             background-size: 30px 30px;
+            padding: 4rem 1rem;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
             justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 2rem;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         /* CONTENEDOR DEL CUADERNO */
         .notebook-container {
             position: relative;
             width: 100%;
-            max-width: 1200px;
-            aspect-ratio: 16 / 9; 
+            max-width: 1100px;
             background-color: var(--hoja-blanca);
-            border-radius: 8px;
+            border-radius: 12px;
             box-shadow: 
-                0 10px 30px rgba(0, 0, 0, 0.15),
-                -5px 5px 0px #f0f0f0, 
-                5px 5px 0px #f0f0f0;
+                0 15px 40px rgba(0, 0, 0, 0.12),
+                -6px 0px 0px #f0f0f0, 
+                6px 0px 0px #f0f0f0;
+            padding: 3rem 0;
             display: flex;
-            overflow: hidden;
+            flex-direction: column;
         }
 
         .notebook-container::before {
@@ -54,150 +53,193 @@
             position: absolute;
             left: 50%;
             top: 0;
+            bottom: 0;
             width: 2px;
-            height: 100%;
             background: rgba(0, 0, 0, 0.05);
             z-index: 1;
         }
 
-        /* LOMO DE ARGOLLAS */
+        /* LOMO DE ARGOLLAS INFINITO */
         .binder-spine {
             position: absolute;
             left: 50%;
             top: 0;
+            bottom: 0;
             transform: translateX(-50%);
-            width: 40px;
-            height: 100%;
-            background: linear-gradient(90deg, #999, #e8e8e8 30%, #fff 50%, #e8e8e8 70%, #888);
-            box-shadow: inset 0 0 10px rgba(0,0,0,0.3), 5px 0 15px rgba(0,0,0,0.1);
+            width: 24px;
+            background: repeating-linear-gradient(
+                to bottom,
+                #777 0px, #ddd 3px, #fff 6px, #aaa 9px, #666 12px,
+                transparent 12px, transparent 90px
+            );
             z-index: 10;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-around;
-            align-items: center;
-            padding: 4rem 0;
-        }
-
-        .ring {
-            width: 65px;
-            height: 16px;
-            background: linear-gradient(to bottom, #777, #ddd 40%, #fff 60%, #666);
-            border-radius: 8px;
-            box-shadow: 0 5px 8px rgba(0,0,0,0.3);
+            filter: drop-shadow(4px 2px 5px rgba(0,0,0,0.15));
         }
 
         .collage-canvas {
-            position: relative;
             width: 100%;
-            height: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem; /* Un poco más de espacio para que no choque la cinta */
+            position: relative;
             z-index: 2;
         }
 
-        /* NUEVO LOGO ESCALONADO ESTILO EDITORIAL */
+        .notebook-row {
+            display: flex;
+            width: 100%;
+            min-height: 300px;
+        }
+
+        .page-left, .page-right {
+            width: 50%;
+            padding: 2rem;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .page-left { justify-content: flex-end; }
+        .page-right { justify-content: flex-start; }
+
+        /* LOGO ESCALONADO */
         .brand-logo-staggered {
-            position: absolute;
-            top: 6%;
-            left: 4%;
             display: flex;
             flex-direction: column;
             gap: 2px;
-            z-index: 4;
             user-select: none;
+            margin-bottom: 2rem;
         }
 
         .brand-logo-staggered .word-limon {
-            font-size: 2.2rem;
+            font-size: 2.5rem;
             font-weight: 900;
             letter-spacing: 2px;
             color: var(--texto-dark);
-            margin-left: 100px; /* Desplazado a la derecha */
+            margin-left: 20px;
         }
 
         .brand-logo-staggered .word-arbol {
-            font-size: 2.2rem;
+            font-size: 2.5rem;
             font-weight: 900;
             letter-spacing: 2px;
             color: var(--texto-dark);
-            margin-left: 170px; /* Más desplazado a la derecha */
-            background: linear-gradient(180deg, transparent 60%, var(--amarillo-pastel) 60%);
+            margin-left: 90px;
+            background: linear-gradient(180deg, transparent 60%, rgba(255, 243, 161, 0.6) 60%);
             padding-right: 10px;
+            display: inline-block;
         }
 
         .brand-logo-staggered .word-portfolio {
             font-family: 'Courier New', Courier, monospace;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             font-weight: bold;
             color: #a2b5cd;
             text-transform: lowercase;
-            margin-left: 30px; /* Menos sangría, justo abajo */
+            margin-left: 40px;
             margin-top: 4px;
         }
 
-        /* CONTENEDORES DE VIDEO */
+        /* TARJETAS DE FOTO (SIN OVERFLOW PARA PERMITIR QUE RESALTE LA CINTA) */
         .video-card {
-            position: absolute;
+            width: 85%;
+            max-width: 380px;
             background-color: var(--borde-foto);
-            padding: 12px 12px 18px 12px; 
-            box-shadow: 4px 8px 20px rgba(0, 0, 0, 0.12);
+            padding: 12px 12px 35px 12px; /* Más espacio abajo para la cinta */
+            box-shadow: 3px 6px 15px rgba(0, 0, 0, 0.08);
             border-radius: 4px;
+            text-decoration: none;
+            color: var(--texto-dark);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            overflow: hidden;
-        }
-
-        .video-card video, 
-        .video-card iframe {
-            width: 100%;
-            height: auto;
-            aspect-ratio: 4 / 3;
-            object-fit: cover;
-            display: block;
-            border-radius: 2px;
-            background-color: #000;
+            border: 1px solid rgba(0,0,0,0.02);
+            position: relative; /* Clave para posicionar el tape */
         }
 
         .video-card:hover {
-            transform: scale(1.02) !important; 
-            box-shadow: 6px 12px 25px rgba(0, 0, 0, 0.18);
+            transform: scale(1.04) rotate(0deg) !important; 
+            box-shadow: 5px 12px 25px rgba(0, 0, 0, 0.15);
             z-index: 5;
         }
 
-        /* AJUSTE DE POSICIONES */
-        /* Moví el video izquierdo un poco hacia abajo para darle aire al nuevo logo */
-        .card-left-main {
-            width: 42%;
-            left: 4%;
-            bottom: 8%;
-            transform: rotate(-2deg);
+        .video-wrapper {
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            background-color: #000;
+            border-radius: 2px;
+            overflow: hidden;
         }
 
-        .card-right-top {
-            width: 28%;
-            right: 14%;
-            top: 10%;
-            transform: rotate(-4deg);
+        .video-wrapper video, 
+        .video-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            border: none;
         }
 
-        .card-right-bottom {
-            width: 32%;
-            right: 4%;
-            bottom: 8%;
-            transform: rotate(2deg);
+        .card-meta {
+            font-size: 0.7rem;
+            font-weight: bold;
+            color: var(--texto-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 0.5rem;
+            display: flex;
+            justify-content: space-between;
         }
 
-        /* DECORACIONES */
-        .star-draw {
+        /* EFECTO DE CINTA ADHESIVA (WASHI TAPE) */
+        .tape-label {
             position: absolute;
-            right: 6%;
-            top: 25%;
-            font-size: 2rem;
-            color: #b0c4de;
+            bottom: -12px;
+            left: 50%;
+            transform: translateX(-50%) rotate(-2.5deg);
+            padding: 6px 24px;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: -0.5px;
+            white-space: nowrap;
+            box-shadow: 2px 3px 8px rgba(0, 0, 0, 0.05);
+            z-index: 3;
+            /* Bordes ligeramente rasgados simulando cinta cortada a mano */
+            border-left: 3px dashed rgba(0, 0, 0, 0.06);
+            border-right: 3px dashed rgba(0, 0, 0, 0.06);
         }
 
-        @media (max-width: 900px) {
-            body { padding: 0; }
-            .notebook-container { aspect-ratio: auto; flex-direction: column; height: auto; padding: 2rem 1rem; }
-            .binder-spine, .brand-logo-staggered { display: none; }
-            .video-card { position: relative; width: 100% !important; left: 0 !important; right: 0 !important; top: 0 !important; bottom: 0 !important; transform: none !important; margin-bottom: 2rem; }
+        /* Colores e inclinaciones alternadas para que se vea más orgánico */
+        .tape-yellow {
+            background-color: var(--amarillo-tape);
+            color: #61561c;
+        }
+
+        .tape-blue {
+            background-color: var(--azul-tape);
+            color: #2b4661;
+            transform: translateX(-50%) rotate(2deg);
+        }
+
+        /* VARIACIONES DE ROTACIÓN PARA LAS FOTOS */
+        .rot-izq-1 { transform: rotate(-2.5deg); }
+        .rot-izq-2 { transform: rotate(-4deg); }
+        .rot-der-1 { transform: rotate(3deg); }
+        .rot-der-2 { transform: rotate(1.5deg); }
+
+        .deco-star {
+            position: absolute;
+            font-size: 1.5rem;
+            color: #bce3ff;
+            user-select: none;
+            opacity: 0.6;
+        }
+
+        @media (max-width: 850px) {
+            .notebook-container::before, .binder-spine { display: none; }
+            .notebook-row { flex-direction: column; min-height: auto; }
+            .page-left, .page-right { width: 100%; justify-content: center; padding: 1.5rem 1rem; }
+            .video-card { width: 100%; max-width: 450px; transform: none !important; margin-bottom: 2.5rem; }
         }
     </style>
 </head>
@@ -205,45 +247,196 @@
 
     <div class="notebook-container">
         
-        <!-- Argollas -->
-        <div class="binder-spine">
-            <div class="ring"></div>
-            <div class="ring"></div>
-            <div class="ring"></div>
-            <div class="ring"></div>
-            <div class="ring"></div>
-        </div>
+        <div class="binder-spine"></div>
 
         <div class="collage-canvas">
             
-            <!-- TU NUEVO LOGO PERSONALIZADO ESCALONADO -->
-            <div class="brand-logo-staggered">
-                <span class="word-limon">LIMON</span>
-                <span class="word-arbol">ARBOL</span>
-                <span class="word-portfolio">portafolio</span>
-            </div>
-            
-            <!-- VIDEO 1: IZQUIERDO (Ajustado abajo del logo) -->
-            <div class="video-card card-left-main">
-                <video autoplay loop muted playsinline>
-                    <source src="tu_video_simulacion_1.mp4" type="video/mp4">
-                </video>
-            </div>
-
-            <!-- VIDEO 2: DERECHO SUPERIOR (El Rickroll de la suerte 🌟) -->
-            <div class="video-card card-right-top">
-                <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1&loop=1&playlist=dQw4w9WgXcQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            <!-- FILA 0: LOGO -->
+            <div class="notebook-row">
+                <div class="page-left" style="align-items: flex-start; justify-content: flex-start; padding-left: 3rem;">
+                    <div class="brand-logo-staggered">
+                        <span class="word-limon">LIMON</span>
+                        <span class="word-arbol">ARBOL</span>
+                        <span class="word-portfolio">portafolio de física y simulación</span>
+                    </div>
+                </div>
+                <div class="page-right">
+                    <div class="deco-star" style="top: 20%; left: 10%; font-size: 2.5rem;">✦</div>
+                </div>
             </div>
 
-            <!-- VIDEO 3: DERECHO INFERIOR -->
-            <div class="video-card card-right-bottom">
-                <video autoplay loop muted playsinline>
-                    <source src="tu_video_simulacion_2.mp4" type="video/mp4">
-                </video>
+            <!-- FILA 1: Caída Libre & Plano Inclinado -->
+            <div class="notebook-row">
+                <div class="page-left">
+                    <a href="TU_LINK_YOUTUBE" target="_blank" class="video-card rot-izq-1">
+                        <div class="video-wrapper">
+                            <video autoplay loop muted playsinline><source src="vids/caida_libre.mp4" type="video/mp4"></video>
+                        </div>
+                        <div class="card-meta"><span>Track 01</span><span>Próximamente</span></div>
+                        <!-- Aquí está la cinta adhesiva -->
+                        <div class="tape-label tape-yellow">Caída Libre</div>
+                    </a>
+                </div>
+                <div class="page-right">
+                    <a href="TU_LINK_YOUTUBE" target="_blank" class="video-card rot-der-1">
+                        <div class="video-wrapper">
+                            <video autoplay loop muted playsinline><source src="vids/plano_inclinado.mp4" type="video/mp4"></video>
+                        </div>
+                        <div class="card-meta"><span>Track 02</span><span>Próximamente</span></div>
+                        <div class="tape-label tape-blue">Plano Inclinado</div>
+                    </a>
+                </div>
             </div>
 
-            <!-- Detalle de estrella fija -->
-            <div class="star-draw">✦</div>
+            <!-- FILA 2: Práctica Boliche & Constraints -->
+            <div class="notebook-row">
+                <div class="page-left">
+                    <a href="TU_LINK_YOUTUBE" target="_blank" class="video-card rot-izq-2">
+                        <div class="video-wrapper">
+                            <video autoplay loop muted playsinline><source src="vids/boliche.mp4" type="video/mp4"></video>
+                        </div>
+                        <div class="card-meta"><span>Track 03</span><span>Próximamente</span></div>
+                        <div class="tape-label tape-blue">Práctica Boliche</div>
+                    </a>
+                </div>
+                <div class="page-right">
+                    <a href="TU_LINK_YOUTUBE" target="_blank" class="video-card rot-der-2">
+                        <div class="video-wrapper">
+                            <video autoplay loop muted playsinline><source src="vids/constraints.mp4" type="video/mp4"></video>
+                        </div>
+                        <div class="card-meta"><span>Track 04</span><span>Próximamente</span></div>
+                        <div class="tape-label tape-yellow">Constraints (Puerta)</div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- FILA 3: Partículas & Fracture -->
+            <div class="notebook-row">
+                <div class="page-left">
+                    <a href="TU_LINK_YOUTUBE" target="_blank" class="video-card rot-izq-1">
+                        <div class="video-wrapper">
+                            <video autoplay loop muted playsinline><source src="vids/particulas.mp4" type="video/mp4"></video>
+                        </div>
+                        <div class="card-meta"><span>Track 05</span><span>Próximamente</span></div>
+                        <div class="tape-label tape-yellow">Partículas</div>
+                    </a>
+                </div>
+                <div class="page-right">
+                    <a href="TU_LINK_YOUTUBE" target="_blank" class="video-card rot-der-1">
+                        <div class="video-wrapper">
+                            <video autoplay loop muted playsinline><source src="vids/fracture.mp4" type="video/mp4"></video>
+                        </div>
+                        <div class="card-meta"><span>Track 06</span><span>Próximamente</span></div>
+                        <div class="tape-label tape-blue">Fracture</div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- FILA 4: Tela Cloth Bandera & Develación Auto -->
+            <div class="notebook-row">
+                <div class="page-left">
+                    <a href="TU_LINK_YOUTUBE" target="_blank" class="video-card rot-izq-2">
+                        <div class="video-wrapper">
+                            <video autoplay loop muted playsinline><source src="vids/tela.mp4" type="video/mp4"></video>
+                        </div>
+                        <div class="card-meta"><span>Track 07</span><span>Próximamente</span></div>
+                        <div class="tape-label tape-blue">Tela Cloth Bandera</div>
+                    </a>
+                </div>
+                <div class="page-right">
+                    <a href="TU_LINK_YOUTUBE" target="_blank" class="video-card rot-der-2">
+                        <div class="video-wrapper">
+                            <video autoplay loop muted playsinline><source src="vids/auto.mp4" type="video/mp4"></video>
+                        </div>
+                        <div class="card-meta"><span>Track 08</span><span>Próximamente</span></div>
+                        <div class="tape-label tape-yellow">Develación Auto</div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- FILA 5: Partículas con Turbulencia & Práctica Fuego -->
+            <div class="notebook-row">
+                <div class="page-left">
+                    <a href="TU_LINK_YOUTUBE" target="_blank" class="video-card rot-izq-1">
+                        <div class="video-wrapper">
+                            <video autoplay loop muted playsinline><source src="vids/turbulencia.mp4" type="video/mp4"></video>
+                        </div>
+                        <div class="card-meta"><span>Track 09</span><span>Próximamente</span></div>
+                        <div class="tape-label tape-yellow">Partículas Turbulencia</div>
+                    </a>
+                </div>
+                <div class="page-right">
+                    <a href="TU_LINK_YOUTUBE" target="_blank" class="video-card rot-der-1">
+                        <div class="video-wrapper">
+                            <video autoplay loop muted playsinline><source src="vids/fuego.mp4" type="video/mp4"></video>
+                        </div>
+                        <div class="card-meta"><span>Track 10</span><span>Próximamente</span></div>
+                        <div class="tape-label tape-blue">Práctica Fuego</div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- FILA 6: Práctica Fluidos & Lata con Fluidos -->
+            <div class="notebook-row">
+                <div class="page-left">
+                    <a href="TU_LINK_YOUTUBE" target="_blank" class="video-card rot-izq-2">
+                        <div class="video-wrapper">
+                            <video autoplay loop muted playsinline><source src="vids/fluidos.mp4" type="video/mp4"></video>
+                        </div>
+                        <div class="card-meta"><span>Track 11</span><span>Próximamente</span></div>
+                        <div class="tape-label tape-blue">Práctica Fluidos</div>
+                    </a>
+                </div>
+                <div class="page-right">
+                    <a href="TU_LINK_YOUTUBE" target="_blank" class="video-card rot-der-2">
+                        <div class="video-wrapper">
+                            <video autoplay loop muted playsinline><source src="vids/lata.mp4" type="video/mp4"></video>
+                        </div>
+                        <div class="card-meta"><span>Track 12</span><span>Próximamente</span></div>
+                        <div class="tape-label tape-yellow">Lata con Fluidos</div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- FILA 7: Práctica Columpio & Práctica Demolición -->
+            <div class="notebook-row">
+                <div class="page-left">
+                    <a href="TU_LINK_YOUTUBE" target="_blank" class="video-card rot-izq-1">
+                        <div class="video-wrapper">
+                            <video autoplay loop muted playsinline><source src="vids/columpio.mp4" type="video/mp4"></video>
+                        </div>
+                        <div class="card-meta"><span>Track 13</span><span>Próximamente</span></div>
+                        <div class="tape-label tape-yellow">Práctica Columpio</div>
+                    </a>
+                </div>
+                <div class="page-right">
+                    <a href="TU_LINK_YOUTUBE" target="_blank" class="video-card rot-der-1">
+                        <div class="video-wrapper">
+                            <video autoplay loop muted playsinline><source src="vids/demolicion.mp4" type="video/mp4"></video>
+                        </div>
+                        <div class="card-meta"><span>Track 14</span><span>Próximamente</span></div>
+                        <div class="tape-label tape-blue">Práctica Demolición</div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- FILA 8: Práctica Soft Body -->
+            <div class="notebook-row">
+                <div class="page-left">
+                    <div class="deco-star" style="bottom: 20%; right: 20%;">✦</div>
+                </div>
+                <div class="page-right">
+                    <!-- Tu práctica principal destacada con tape de color especial -->
+                    <a href="AQUI_TU_LINK_REAL_DE_YOUTUBE" target="_blank" class="video-card rot-der-2" style="border: 2px solid #bce3ff; background-color: #fffdec;">
+                        <div class="video-wrapper">
+                            <!-- Dejo el Rickroll de la suerte de momento ;) -->
+                            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1&loop=1&playlist=dQw4w9WgXcQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                        </div>
+                        <div class="card-meta"><span style="color: #dcb000;">TITLE TRACK 🌟</span><span style="color: #4baf50; font-weight: 800;">¡Ver Video! ↗</span></div>
+                        <div class="tape-label tape-yellow" style="font-weight: 900; border: 1px dashed rgba(0,0,0,0.15);">Práctica Soft Body</div>
+                    </a>
+                </div>
+            </div>
 
         </div>
 
