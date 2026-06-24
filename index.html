@@ -5,13 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Scrapbook Infinito — LimonArbol</title>
     <style>
-        /* PALETA PASTEL (Tus colores LimonArbol + Vibras OMYO) */
         :root {
             --bg-lavanda: #dbe4f9;      
             --hoja-blanca: #fbfbfb;     
             --borde-foto: #ffffff;      
-            --amarillo-tape: rgba(255, 243, 161, 0.9); /* Amarillo pastel con transparencia de cinta */
-            --azul-tape: rgba(188, 227, 255, 0.9);     /* Azul pastel con transparencia de cinta */
+            --amarillo-tape: rgba(255, 243, 161, 0.9); 
+            --azul-tape: rgba(188, 227, 255, 0.9);
             --texto-dark: #2a3b50;
             --texto-muted: #8fa0b5;
         }
@@ -32,7 +31,6 @@
             justify-content: center;
         }
 
-        /* CONTENEDOR DEL CUADERNO */
         .notebook-container {
             position: relative;
             width: 100%;
@@ -59,7 +57,6 @@
             z-index: 1;
         }
 
-        /* LOMO DE ARGOLLAS INFINITO */
         .binder-spine {
             position: absolute;
             left: 50%;
@@ -80,7 +77,7 @@
             width: 100%;
             display: flex;
             flex-direction: column;
-            gap: 2.5rem; /* Un poco más de espacio para que no choque la cinta */
+            gap: 2.5rem;
             position: relative;
             z-index: 2;
         }
@@ -139,20 +136,18 @@
             margin-left: 40px;
             margin-top: 4px;
         }
-
-        /* TARJETAS DE FOTO (SIN OVERFLOW PARA PERMITIR QUE RESALTE LA CINTA) */
         .video-card {
             width: 85%;
             max-width: 380px;
             background-color: var(--borde-foto);
-            padding: 12px 12px 35px 12px; /* Más espacio abajo para la cinta */
+            padding: 12px 12px 35px 12px;
             box-shadow: 3px 6px 15px rgba(0, 0, 0, 0.08);
             border-radius: 4px;
             text-decoration: none;
             color: var(--texto-dark);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             border: 1px solid rgba(0,0,0,0.02);
-            position: relative; /* Clave para posicionar el tape */
+            position: relative;
         }
 
         .video-card:hover {
@@ -189,7 +184,6 @@
             justify-content: space-between;
         }
 
-        /* EFECTO DE CINTA ADHESIVA (WASHI TAPE) */
         .tape-label {
             position: absolute;
             bottom: -12px;
@@ -204,12 +198,10 @@
             white-space: nowrap;
             box-shadow: 2px 3px 8px rgba(0, 0, 0, 0.05);
             z-index: 3;
-            /* Bordes ligeramente rasgados simulando cinta cortada a mano */
             border-left: 3px dashed rgba(0, 0, 0, 0.06);
             border-right: 3px dashed rgba(0, 0, 0, 0.06);
         }
 
-        /* Colores e inclinaciones alternadas para que se vea más orgánico */
         .tape-yellow {
             background-color: var(--amarillo-tape);
             color: #61561c;
@@ -221,7 +213,6 @@
             transform: translateX(-50%) rotate(2deg);
         }
 
-        /* VARIACIONES DE ROTACIÓN PARA LAS FOTOS */
         .rot-izq-1 { transform: rotate(-2.5deg); }
         .rot-izq-2 { transform: rotate(-4deg); }
         .rot-der-1 { transform: rotate(3deg); }
@@ -251,13 +242,13 @@
 
         <div class="collage-canvas">
             
-            <!-- FILA 0: LOGO -->
             <div class="notebook-row">
                 <div class="page-left" style="align-items: flex-start; justify-content: flex-start; padding-left: 3rem;">
                     <div class="brand-logo-staggered">
                         <span class="word-limon">LIMON</span>
                         <span class="word-arbol">ARBOL</span>
-                        <span class="word-portfolio">portafolio de física y simulación</span>
+                        <span class="word-portfolio">portafolio de Física y Simulación</span>
+                        <span class="word-portfolio">Carolina Becerra Macías</span>
                     </div>
                 </div>
                 <div class="page-right">
@@ -265,15 +256,13 @@
                 </div>
             </div>
 
-            <!-- FILA 1: Caída Libre & Plano Inclinado -->
             <div class="notebook-row">
                 <div class="page-left">
-                    <a href="TU_LINK_YOUTUBE" target="_blank" class="video-card rot-izq-1">
+                    <a href="https://youtu.be/-JskxXPjqHs" target="_blank" class="video-card rot-izq-1">
                         <div class="video-wrapper">
                             <video autoplay loop muted playsinline><source src="vids/caida_libre.mp4" type="video/mp4"></video>
                         </div>
-                        <div class="card-meta"><span>Track 01</span><span>Próximamente</span></div>
-                        <!-- Aquí está la cinta adhesiva -->
+                        <div class="card-meta"><span>SIM 01</span><span>CBM</span></div>
                         <div class="tape-label tape-yellow">Caída Libre</div>
                     </a>
                 </div>
