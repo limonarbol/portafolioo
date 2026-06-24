@@ -2,87 +2,456 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Portafolio LimonArbol</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LimonArbol — Física & Simulación</title>
+    <!-- Fuentes de Google estilo K-Pop/Editorial -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    
     <style>
-        body {
-            background-color: #e0f7fa;
-            font-family: sans-serif;
+        /* PALETA DE COLORES K-POP IDOL (Azules y Amarillos Pastel + Limonarbol Core) */
+        :root {
+            --bg-pastel: #f0f6fa;       /* Azul pastel de fondo ultra limpio */
+            --tarjeta-bg: #ffffff;     /* Blanco puro para contraste de empaque */
+            --azul-brand: #a3daff;     /* Azul pastel de tu marca */
+            --amarillo-brand: #fff3a1; /* Amarillo pastel brillante */
+            --texto-dark: #1a2238;     /* Azul marino profundo para textos claros y legibles */
+            --texto-muted: #8fa0b5;    /* Gris azulado para subtítulos tipo créditos de álbum */
+            --borde-sutil: #e1edf7;    /* Bordes limpios */
+        }
+
+        * {
             margin: 0;
-            padding: 20px;
-        }
-        
-        .header {
-            text-align: center;
-            color: #ffeb3b; 
-            margin-bottom: 30px;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        .grid-container {
-            display: grid;
-            grid-template-columns: 
-            gap: 20px;
-            padding: 20px;
+        body {
+            background-color: var(--bg-pastel);
+            color: var(--texto-dark);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+            padding: 3rem 2rem;
+            /* Textura sutil de fondo */
+            background-image: radial-gradient(rgba(163, 218, 255, 0.3) 1px, transparent 0);
+            background-size: 24px 24px;
         }
 
-        .grid-item {
-            background-color: white;
-            border-radius: 15px;
-            overflow: hidden;
-            border: 2px solid #b3e5fc; 
-            text-align: center;
-            transition: transform 0.2s;
-            text-decoration: none; 
-            color: #333;
-            display: block;
+        /* DETALLES DE ESTRELLAS DECORATIVAS FLOTANTES */
+        .decor-star {
+            position: absolute;
+            color: var(--azul-brand);
+            font-size: 1.5rem;
+            pointer-events: none;
+            opacity: 0.6;
         }
 
-        .grid-item:hover {
-            transform: scale(1.05); 
-            border-color: #fff176; 
+        /* HEADER ESTILO EMBALAJE DE ÁLBUM */
+        header {
+            max-width: 1300px;
+            margin: 0 auto 4rem auto;
+            border-bottom: 2px dashed var(--azul-brand);
+            padding-bottom: 2rem;
+            position: relative;
         }
 
-        .grid-item img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        .info {
-            padding: 10px;
-        }
-
-        .title {
-            font-weight: bold;
-            font-size: 1.1em;
+        .brand-sub {
+            font-size: 0.85rem;
+            font-weight: 800;
             text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--texto-muted);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
-        .status {
-            font-size: 0.9em;
-            color: #888;
+        .brand-sub span {
+            color: #ffd43b;
+        }
+
+        h1 {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(2rem, 4vw, 3.8rem);
+            line-height: 1.1;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+        }
+
+        h1 .highlight-blue {
+            color: transparent;
+            -webkit-text-stroke: 1.5px var(--texto-dark);
+            background: linear-gradient(to bottom, transparent 60%, var(--azul-brand) 60%);
+        }
+
+        h1 .highlight-yellow {
+            background: linear-gradient(to bottom, transparent 60%, var(--amarillo-brand) 60%);
+        }
+
+        .header-meta {
+            margin-top: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            font-size: 0.85rem;
+            color: var(--texto-muted);
+            font-weight: 600;
+        }
+
+        /* CUADRÍCULA DE PORTAFOLIO (Inspirado en Grid de Behance / Photocards) */
+        .portfolio-grid {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        /* TARGETAS TIPO ALBUM INCLUSION / MERCH */
+        .card {
+            background-color: var(--tarjeta-bg);
+            border: 1px solid var(--borde-sutil);
+            border-radius: 24px;
+            padding: 1.2rem;
+            text-decoration: none;
+            color: var(--texto-dark);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 4px 12px rgba(26, 34, 56, 0.02);
+            overflow: hidden;
+        }
+
+        /* Efecto Hover Limpio y Premium */
+        .card:hover {
+            transform: translateY(-7px);
+            border-color: var(--azul-brand);
+            box-shadow: 0 20px 30px rgba(163, 218, 255, 0.25);
+        }
+
+        /* Contenedor de la Imagen / Placeholder */
+        .card-cover {
+            width: 100%;
+            aspect-ratio: 1/1; /* Cuadrado perfecto estilo portada de single o photocard */
+            background-color: var(--bg-pastel);
+            border-radius: 16px;
+            margin-bottom: 1.2rem;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(163, 218, 255, 0.2);
+        }
+
+        /* Miniatura interna si decides poner fotos */
+        .card-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .card:hover .card-cover img {
+            transform: scale(1.06);
+        }
+
+        /* Sticker o Icono del estado */
+        .status-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            padding: 0.4rem 0.8rem;
+            border-radius: 100px;
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            z-index: 2;
+        }
+
+        .status-badge.soon {
+            background-color: #ffffff;
+            color: var(--texto-muted);
+            border: 1px solid var(--borde-sutil);
+        }
+
+        .status-badge.active {
+            background-color: var(--amarillo-brand);
+            color: var(--texto-dark);
+            box-shadow: 0 4px 10px rgba(255, 243, 161, 0.4);
+        }
+
+        /* Detalles de Texto de la tarjeta */
+        .card-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+            position: relative;
+        }
+
+        .track-number {
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: var(--azul-brand);
+            font-family: 'Syne', sans-serif;
+        }
+
+        .card-title {
+            font-size: 1.15rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+        }
+
+        /* Pequeño destello decorativo interno que aparece en hover */
+        .card-star {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            color: var(--amarillo-brand);
+            font-size: 1.2rem;
+            opacity: 0;
+            transform: scale(0.5) rotate(-45deg);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover .card-star {
+            opacity: 1;
+            transform: scale(1) rotate(0deg);
+        }
+
+        /* RESPONSIVO */
+        @media (max-width: 768px) {
+            body { padding: 1.5rem 1rem; }
+            header { margin-bottom: 2.5rem; }
+            .header-meta { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
         }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <h1>PORTAFOLIO DE FÍSICA Y SIMULACIÓN</h1>
-        <p>LimonArbol</p>
-    </div>
+    <!-- Estrellas de fondo flotantes estilo TXT/NCT -->
+    <div class="decor-star" style="top: 4%; left: 8%;">✦</div>
+    <div class="decor-star" style="top: 15%; right: 12%; color: var(--amarillo-brand)">✦</div>
 
-    <div class="grid-container">
-        <!-- Ejemplo de un elemento de la cuadrícula -->
-        <a href="TU_LINK_DE_YOUTUBE_AQUI" class="grid-item">
-            <img src="RUTA_A_TU_IMAGEN_DE_CAIDA_LIBRE.jpg" alt="Caida libre">
-            <div class="info">
-                <div class="title">CAIDA LIBRE</div>
-                <div class="status">PROXIMAMENTE</div>
+    <!-- CABECERA IDOL BRANDING -->
+    <header>
+        <div class="brand-sub">✦ LimonArbol <span>●</span> Physical Concept Archive</div>
+        <h1>Portafolio de <span class="highlight-blue">Física</span> & <span class="highlight-yellow">Simulación</span></h1>
+        
+        <div class="header-meta">
+            <div>PROJECT / VOL. 2026</div>
+            <div>SCROLL TO VIEW TRACKLIST ✦</div>
+        </div>
+    </header>
+
+    <!-- REJILLA DE PROYECTOS / PHOTOCARDS -->
+    <main class="portfolio-grid">
+
+        <!-- 01. Caida Libre -->
+        <!-- Cambia el href por tu link de YouTube definitivo -->
+        <a href="https://youtube.com" target="_blank" class="card">
+            <span class="status-badge soon">Próximamente</span>
+            <div class="card-cover">
+                <!-- Puedes dejar un fondo pastel limpio o meter una imagen/render de tu simulación aquí -->
+                <div style="font-size: 2.5rem;">☄️</div>
+            </div>
+            <div class="card-info">
+                <span class="track-number">TRACK 01</span>
+                <h3 class="card-title">Caída Libre</h3>
+                <span class="card-star">✦</span>
             </div>
         </a>
 
-        
+        <!-- 02. Plano Inclinado -->
+        <a href="https://youtube.com" target="_blank" class="card">
+            <span class="status-badge soon">Próximamente</span>
+            <div class="card-cover">
+                <div style="font-size: 2.5rem;">📐</div>
+            </div>
+            <div class="card-info">
+                <span class="track-number">TRACK 02</span>
+                <h3 class="card-title">Plano Inclinado</h3>
+                <span class="card-star">✦</span>
+            </div>
+        </a>
 
-    </div>
+        <!-- 03. Práctica Boliche -->
+        <a href="https://youtube.com" target="_blank" class="card">
+            <span class="status-badge soon">Próximamente</span>
+            <div class="card-cover">
+                <div style="font-size: 2.5rem;">🎳</div>
+            </div>
+            <div class="card-info">
+                <span class="track-number">TRACK 03</span>
+                <h3 class="card-title">Práctica Boliche</h3>
+                <span class="card-star">✦</span>
+            </div>
+        </a>
+
+        <!-- 04. Constrains (Puerta) -->
+        <a href="https://youtube.com" target="_blank" class="card">
+            <span class="status-badge soon">Próximamente</span>
+            <div class="card-cover">
+                <div style="font-size: 2.5rem;">🚪</div>
+            </div>
+            <div class="card-info">
+                <span class="track-number">TRACK 04</span>
+                <h3 class="card-title">Constrains (Puerta)</h3>
+                <span class="card-star">✦</span>
+            </div>
+        </a>
+
+        <!-- 05. Partículas -->
+        <a href="https://youtube.com" target="_blank" class="card">
+            <span class="status-badge soon">Próximamente</span>
+            <div class="card-cover">
+                <div style="font-size: 2.5rem;">✨</div>
+            </div>
+            <div class="card-info">
+                <span class="track-number">TRACK 05</span>
+                <h3 class="card-title">Partículas</h3>
+                <span class="card-star">✦</span>
+            </div>
+        </a>
+
+        <!-- 06. Fracture -->
+        <a href="https://youtube.com" target="_blank" class="card">
+            <span class="status-badge soon">Próximamente</span>
+            <div class="card-cover">
+                <div style="font-size: 2.5rem;">💎</div>
+            </div>
+            <div class="card-info">
+                <span class="track-number">TRACK 06</span>
+                <h3 class="card-title">Fracture</h3>
+                <span class="card-star">✦</span>
+            </div>
+        </a>
+
+        <!-- 07. Práctica tela cloth bandera -->
+        <a href="https://youtube.com" target="_blank" class="card">
+            <span class="status-badge soon">Próximamente</span>
+            <div class="card-cover">
+                <div style="font-size: 2.5rem;">🏴</div>
+            </div>
+            <div class="card-info">
+                <span class="track-number">TRACK 07</span>
+                <h3 class="card-title">Tela Cloth Bandera</h3>
+                <span class="card-star">✦</span>
+            </div>
+        </a>
+
+        <!-- 08. Develación auto -->
+        <a href="https://youtube.com" target="_blank" class="card">
+            <span class="status-badge soon">Próximamente</span>
+            <div class="card-cover">
+                <div style="font-size: 2.5rem;">🏎️</div>
+            </div>
+            <div class="card-info">
+                <span class="track-number">TRACK 08</span>
+                <h3 class="card-title">Develación Auto</h3>
+                <span class="card-star">✦</span>
+            </div>
+        </a>
+
+        <!-- 09. Partículas con turbulencia -->
+        <a href="https://youtube.com" target="_blank" class="card">
+            <span class="status-badge soon">Próximamente</span>
+            <div class="card-cover">
+                <div style="font-size: 2.5rem;">🌪️</div>
+            </div>
+            <div class="card-info">
+                <span class="track-number">TRACK 09</span>
+                <h3 class="card-title">Partículas Turbulencia</h3>
+                <span class="card-star">✦</span>
+            </div>
+        </a>
+
+        <!-- 10. Practica fuego -->
+        <a href="https://youtube.com" target="_blank" class="card">
+            <span class="status-badge soon">Próximamente</span>
+            <div class="card-cover">
+                <div style="font-size: 2.5rem;">🔥</div>
+            </div>
+            <div class="card-info">
+                <span class="track-number">TRACK 10</span>
+                <h3 class="card-title">Práctica Fuego</h3>
+                <span class="card-star">✦</span>
+            </div>
+        </a>
+
+        <!-- 11. Práctica Fluidos -->
+        <a href="https://youtube.com" target="_blank" class="card">
+            <span class="status-badge soon">Próximamente</span>
+            <div class="card-cover">
+                <div style="font-size: 2.5rem;">🌊</div>
+            </div>
+            <div class="card-info">
+                <span class="track-number">TRACK 11</span>
+                <h3 class="card-title">Práctica Fluidos</h3>
+                <span class="card-star">✦</span>
+            </div>
+        </a>
+
+        <!-- 12. Lata con fluidos -->
+        <a href="https://youtube.com" target="_blank" class="card">
+            <span class="status-badge soon">Próximamente</span>
+            <div class="card-cover">
+                <div style="font-size: 2.5rem;">🥤</div>
+            </div>
+            <div class="card-info">
+                <span class="track-number">TRACK 12</span>
+                <h3 class="card-title">Lata con Fluidos</h3>
+                <span class="card-star">✦</span>
+            </div>
+        </a>
+
+        <!-- 13. Práctica columpio -->
+        <a href="https://youtube.com" target="_blank" class="card">
+            <span class="status-badge soon">Próximamente</span>
+            <div class="card-cover">
+                <div style="font-size: 2.5rem;">🎠</div>
+            </div>
+            <div class="card-info">
+                <span class="track-number">TRACK 13</span>
+                <h3 class="card-title">Práctica Columpio</h3>
+                <span class="card-star">✦</span>
+            </div>
+        </a>
+
+        <!-- 14. Practica Demolición -->
+        <a href="https://youtube.com" target="_blank" class="card">
+            <span class="status-badge soon">Próximamente</span>
+            <div class="card-cover">
+                <div style="font-size: 2.5rem;">💥</div>
+            </div>
+            <div class="card-info">
+                <span class="track-number">TRACK 14</span>
+                <h3 class="card-title">Práctica Demolición</h3>
+                <span class="card-star">✦</span>
+            </div>
+        </a>
+
+        <!-- 15. Práctica Soft Body -->
+        <!-- He puesto este proyecto como "Activo" (destacado) con tu color amarillo de marca para que resalte -->
+        <a href="AQUÍ_TU_LINK_REAL_DE_YOUTUBE" target="_blank" class="card" style="border-color: var(--azul-brand);">
+            <span class="status-badge active">Ver Video ↗</span>
+            <div class="card-cover" style="background-color: #fffdec;">
+                <div style="font-size: 2.8rem;">🧸</div>
+            </div>
+            <div class="card-info">
+                <span class="track-number" style="color: #e0b000;">TITLE TRACK</span>
+                <h3 class="card-title">Práctica Soft Body</h3>
+                <span class="card-star" style="opacity: 1;">✦</span>
+            </div>
+        </a>
+
+    </main>
 
 </body>
 </html>
